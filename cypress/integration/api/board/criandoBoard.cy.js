@@ -24,8 +24,8 @@ describe('Criar Board no Trello', () => {
                 method: 'GET',
                 url: `https://api.trello.com/1/boards/${idBoard}/lists`,
                 qs: {
-                   key: Cypress.env('apiKey'),
-                   token: Cypress.env('apiToken')
+                    key: Cypress.env('apiKey'),
+                    token: Cypress.env('apiToken')
                 }
             }).then((response) => {
                 expect(response.status).to.eq(200);
