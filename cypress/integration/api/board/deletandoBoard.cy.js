@@ -1,9 +1,17 @@
 describe('Deve apagar o board criado', () => {
-    it('should delete the board', () => {
-        cy.readFile('cypress/api/dados/dados.json').then((dados) => {
+    it('Deve apagar o board', () => {
+        cy.readFile('cypress/fixtures/board.json').then((dados) => {
+            const idBoard = dados.idBoard;
+
+            expect(idBoard).to.exist;
+
             cy.request({
                 method: 'DELETE',
-                url: `https://api.trello.com/1/boards/${dados.boardId}?key=${Cypress.env('apiKey')}&token=${Cypress.env('apiToken')}`,
+                url: `https://api.trello.com/1/boards/${idBoard}`,
+                qs: {
+                    key: Cypress.env('apiKey'),
+                    token: Cypress.env('apiToken')
+                }
             }).then((response) => {
                 expect(response.status).to.eq(200);
             });
