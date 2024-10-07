@@ -1,47 +1,27 @@
 // cypress/integration/api/card/criarCard.cy.js
 import {faker} from "@faker-js/faker/locale/pt_BR";
+import {criarCard} from '../../../support/trelloApi';
 
 describe('Criar Cards no Trello', () => {
-    it('Deve cards no trello', () => {
+    it('Deve criar cards no Trello', () => {
         cy.readFile('cypress/fixtures/board.json').then((dados) => {
             const idList = dados.idList;
-            const nameBoard = faker.company.name();
+            const cardName = `Card: ${faker.commerce.productName()}`; // Nome único usando Faker
 
-            // Cria 1 ou N cards
-            const numeroDeCards = 1;
-            let cardsId = dados.cardsId || [];
-
-            // Função para criar um card
-            for (let i = 0; i < numeroDeCards; i++) {
-                cy.request({
-                    method: 'POST',
-                    url: `https://api.trello.com/1/cards`,
-                    qs: {
-                        idList: idList,
-                        name: `Card: ${nameBoard}`, // Nome único usando Faker
-                        key: Cypress.env('apiKey'),
-                        token: Cypress.env('apiToken')
+            criarCard(cardName, idList).then((card) => {
+                cy.log(`Card ${card.name} criado com sucesso: ID ${card.id}`);
+                return cy.readFile('cypress/fixtures/board.json').then((data) => {
+                    // Cria 1 ou N cards
+                    const numeroDeCards = 1;
+                    let cardsId = dados.cardsId || [];
+                    for (let i = 0; i < numeroDeCards; i++) {
+                        cardsId.push(card.id);
                     }
-                }).then((response) => {
-                    expect(response.status).to.eq(200);
-                    const cardId = response.body.id; // Captura o ID do card
+                    data.cardsId = cardsId;
 
-                    // Adiciona o novo cardId ao array
-                    cardsId.push(cardId);
-
-                    // Atualiza o arquivo com os novos cardsId
-                    cy.writeFile('cypress/fixtures/card.json', {...dados, cardsId});
+                    return cy.writeFile('cypress/fixtures/card.json', data);
                 });
-            }
+            });
         });
     });
 });
-
-
-
-
-
-
-
-
-
