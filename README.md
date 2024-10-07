@@ -23,33 +23,17 @@ Substitua `coloque_aqui_sua_chave_de_api` e `coloque_aqui_seu_token_de_api` pela
 
 Para instalar todas as dependências necessárias para rodar os testes, execute o seguinte comando no terminal:
 
-```
+```bash
 npm install
 ```
 
 Certifique-se de que você está no diretório raiz do projeto ao executar este comando.
 
 
-## Executando os Testes
-
-Você pode executar os testes de diferentes maneiras, dependendo da sua necessidade.
-
-
 ### Executar Todos os Testes
 
 Para executar todos os testes automatizados, utilize o comando:
 
+```bash
+npx cypress open
 ```
-npx cypress run
-```
-
-
-### Executar um Único Teste
-
-Para executar um teste específico, você pode especificar o caminho do arquivo de teste diretamente. Por exemplo:
-
-```
-npx cypress run --spec "cypress/integration/nome_do_arquivo_de_teste.js"
-```
-
-Substitua `nome_do_arquivo_de_teste.js` pelo nome do arquivo de teste que deseja executar.
