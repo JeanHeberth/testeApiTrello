@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx cypress run",
-    "allure:generate": "allure generate ./allure-results -o ./allure-report",
+    "allure:generate": "allure generate ./allure-results -o ./allure-report --clean",
     "allure:open": "allure open ./allure-report"
   },
   "author": "Jean Heberth",
