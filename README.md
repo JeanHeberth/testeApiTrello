@@ -34,17 +34,3 @@ Para executar todos os testes automatizados, utilize o comando:
 ```bash
 npx cypress run
 ```
-
-### Resultado dos testes
-
-Para criar um relatório do teste execute o comando:
-
-```bash
-allure generate ./allure-results -o ./allure-report --clean
-```
-
-Para visualizar o relatório do teste execute o comando:
-
-```bash
-allure open ./allure-report
-```
