@@ -1,17 +1,22 @@
 // cypress/integration/api/card/deletarCard.cy.js
-import {deletarCard} from '../../../support/trelloApi';
+import { deletarCard } from '../../../support/trelloApi';
 
-describe('Deletar  card no Trello', () => {
-    it('Deve deletar um card por vez até que todos sejam deletados', () => {
+describe('Deletar o primeiro Card no Trello', () => {
+    it('Deve deletar o primeiro card da lista', () => {
         cy.readFile('cypress/fixtures/card.json').then((dados) => {
-            let cardsId = dados.cardsId;
+            const cardsId = dados.cardsId;
 
+            // Verifica se há algum card na lista para deletar
             if (cardsId && cardsId.length > 0) {
-                const idCard = cardsId.shift();
-                cy.writeFile('cypress/fixtures/card.json', {...dados, cardsId});
-                deletarCard(idCard);
+                const idCard = cardsId[0]; // Pega o primeiro card
+
+                deletarCard(idCard).then(() => {
+                    cy.log(`Card com ID ${idCard} deletado com sucesso`);
+                    dados.cardsId = cardsId.filter(card => card !== idCard);
+                    cy.writeFile('cypress/fixtures/card.json', dados);
+                });
             } else {
-                cy.log('Nenhum card encontrado para deletar');
+                cy.log('Nenhum card encontrado para deletar.');
             }
         });
     });
