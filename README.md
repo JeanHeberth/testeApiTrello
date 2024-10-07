@@ -1,8 +1,7 @@
-
 ## Configuração Inicial
 
-Antes de executar os testes, é necessário configurar as credenciais de autenticação do Trello. Siga os passos abaixo para configurar seu ambiente.
-
+Antes de executar os testes, é necessário configurar as credenciais de autenticação do Trello. Siga os passos abaixo
+para configurar seu ambiente.
 
 ### Arquivo de Configuração
 
@@ -18,7 +17,6 @@ Antes de executar os testes, é necessário configurar as credenciais de autenti
 
 Substitua `coloque_aqui_sua_chave_de_api` e `coloque_aqui_seu_token_de_api` pelas suas credenciais reais do Trello.
 
-
 ## Instalação de Dependências
 
 Para instalar todas as dependências necessárias para rodar os testes, execute o seguinte comando no terminal:
@@ -29,11 +27,24 @@ npm install
 
 Certifique-se de que você está no diretório raiz do projeto ao executar este comando.
 
-
 ### Executar Todos os Testes
 
 Para executar todos os testes automatizados, utilize o comando:
 
 ```bash
-npx cypress open
+npx cypress run
+```
+
+### Resultado dos testes
+
+Para criar um relatório do teste execute o comando:
+
+```bash
+allure generate ./allure-results -o ./allure-report --clean
+```
+
+Para visualizar o relatório do teste execute o comando:
+
+```bash
+allure open ./allure-report
 ```

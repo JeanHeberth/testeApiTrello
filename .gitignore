@@ -9,7 +9,8 @@ fixtures/
 # Resultados de testes e relatórios
 cypress/screenshots/
 cypress/videos/
-allure-results/
+allure-results
+allure-report
 
 # Configurações do Cypress (opcional, dependendo do projeto)
 cypress/config/
