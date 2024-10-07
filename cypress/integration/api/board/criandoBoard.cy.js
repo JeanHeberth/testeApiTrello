@@ -1,25 +1,24 @@
-// cypress/integration/api/board/criarBoard.cy.js
+import {faker} from "@faker-js/faker/locale/pt_BR";
+
 describe('Criar Board no Trello', () => {
-
-
     it('Deve criar um board e salvar o idBoard e idList', () => {
-        // Passo 1: Criar um board
+        const boardName = faker.company.name();
+
         cy.request({
             method: 'POST',
             url: `https://api.trello.com/1/boards/`,
             qs: {
-                name: 'MeuNovoBoard',
+                name: "Board " + boardName,
                 key: Cypress.env('apiKey'),
                 token: Cypress.env('apiToken')
             }
         }).then((response) => {
             expect(response.status).to.eq(200);
-            const idBoard = response.body.id; // Captura o ID do board
+            const idBoard = response.body.id;
 
-            // Salva o idBoard em um arquivo fixture
-            cy.writeFile('cypress/fixtures/board.json', { idBoard });
+            cy.writeFile('cypress/fixtures/board.json', {idBoard, name: boardName});
+            cy.log(`Board ${boardName} criado com sucesso ID: ${idBoard}`);
 
-            // Passo 2: Obter as listas do board
             cy.request({
                 method: 'GET',
                 url: `https://api.trello.com/1/boards/${idBoard}/lists`,
@@ -29,15 +28,13 @@ describe('Criar Board no Trello', () => {
                 }
             }).then((response) => {
                 expect(response.status).to.eq(200);
-                const idList = response.body[0].id; // Captura o ID da primeira lista
-
-                // Adiciona o idList ao arquivo fixture
+                const idList = response.body[0].id;
                 cy.readFile('cypress/fixtures/board.json').then((data) => {
                     data.idList = idList;
                     cy.writeFile('cypress/fixtures/board.json', data);
                 });
 
-                cy.log('Board e lista criados com sucesso');
+                cy.log(`Board e lista criados com sucesso: Board: ${boardName}`);
             });
         });
     });
