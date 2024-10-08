@@ -50,6 +50,6 @@ jobs:
         env:
         TRELLO_KEY: ${{ secrets.apiKey }}
         TRELLO_TOKEN: ${{ secrets.apiToken }}
-        run: npx cypress run --env TRELLO_KEY=${{ secrets.apiKey }},TRELLO_TOKEN=${{ secrets.apiToken}}
+        run: npx cypress run --env apiKey=${{ secrets.apiKey }},apiToken=${{ secrets.apiToken}}
 
 
