@@ -48,8 +48,8 @@ jobs:
 
       - name: Run Cypress tests
         env:
-        TRELLO_KEY: ${{ secrets.apiKey }}
-        TRELLO_TOKEN: ${{ secrets.apiToken }}
+        apiKey: ${{ secrets.apiKey }}
+        apiToken: ${{ secrets.apiToken }}
         run: npx cypress run --env apiKey=${{ secrets.apiKey }},apiToken=${{ secrets.apiToken}}
 
 
