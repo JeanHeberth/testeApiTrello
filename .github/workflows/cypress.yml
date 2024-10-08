@@ -1,0 +1,55 @@
+name: CI/CD Cypress
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress tests
+        run: npx cypress run
+
+
+      - name: Run Cypress tests
+        env:
+        TRELLO_KEY: ${{ secrets.apiKey }}
+        TRELLO_TOKEN: ${{ secrets.apiToken }}
+        run: npx cypress run --env TRELLO_KEY=${{ secrets.apiKey }},TRELLO_TOKEN=${{ secrets.apiToken}}
+
+
