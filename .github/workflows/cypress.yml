@@ -48,8 +48,8 @@ jobs:
 
       - name: Run Cypress tests
         env:
-        apiKey: ${{ secrets.apiKey }}
-        apiToken: ${{ secrets.apiToken }}
+        apiKey: ${{ secrets.APIKEY }}
+        apiToken: ${{ secrets.APITOKEN }}
         run: npx cypress run --env apiKey=${{ secrets.apiKey }},apiToken=${{ secrets.apiToken}}
 
 
