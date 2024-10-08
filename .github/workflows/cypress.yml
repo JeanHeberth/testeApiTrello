@@ -19,37 +19,14 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22'
+          node-version: '22'  # Confirme que a versão 22 é a correta para seu projeto
 
       - name: Install dependencies
         run: npm install
-
-
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '22'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Cypress tests
-        run: npx cypress run
-
 
       - name: Run Cypress tests
         env:
-        apiKey: ${{ secrets.APIKEY }}
-        apiToken: ${{ secrets.APITOKEN }}
-        run: npx cypress run --env apiKey=${{ secrets.apiKey }},apiToken=${{ secrets.apiToken}}
-
-
+          apiKey: ${{ secrets.APIKEY }}
+          apiToken: ${{ secrets.APITOKEN }}
+        run: |
+          npx cypress run --env apiKey=${{ secrets.APIKEY }},apiToken=${{ secrets.APITOKEN }}
